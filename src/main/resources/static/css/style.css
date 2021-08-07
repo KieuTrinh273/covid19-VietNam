@@ -1,0 +1,47 @@
+.number {
+  width: 200px;
+}
+.total-case {
+  width: 100px;
+  color: red;
+  font-weight: bold;
+}
+.title {
+  margin: 10px 10px 10px 0;
+}
+table {
+  margin-left: 2.5em;
+}
+td p {
+  color: grey;
+}
+.main {
+  margin: 2em 3em;
+}
+li {
+  margin: 1em 0;
+}
+a {
+  text-decoration: none;
+}
+a:visited {
+  color: blue;
+}
+a:hover {
+  color: purple;
+}
+.fake-button {
+  padding: 0.3em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 1em;
+  background-color: lightblue;
+  font-weight: bold;
+}
+.provinces td {
+  width: 23%;
+}
+.right {
+  padding-left: 1em;
+  border-left: 1px solid black;
+}

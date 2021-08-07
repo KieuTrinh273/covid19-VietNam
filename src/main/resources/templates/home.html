@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Covid19 in Vietnam</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="content">
+    <div class="main"  style="display: flex" >
+        <div class="left" style="width: 50%;">
+        <h1 class="title">Overview</h1>
+        <table>
+            <tr>
+                <td>
+                    <h2>Total confirmed cases: </h2>
+                </td>
+                <td>
+                    <h2 class="total-case" th:text="${#numbers.formatInteger(data.totalConfirmed, 0, 'COMMA')}"></h2>
+                </td>
+                <td class="number">
+                    <p th:text="${deltaCaseTotal}"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Number of deaths:</td>
+                <td class="number" th:text="${#numbers.formatInteger(data.totalDeaths, 0, 'COMMA')}"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Number of patients recovered:</td>
+                <td class="number" th:text="${#numbers.formatInteger(data.totalRecovered, 0, 'COMMA')}"></td>
+            </tr>
+        </table>
+
+        <hr/>
+        <h1 class="title">News</h1>
+        <ul class="topNews">
+            <li class="each-new" th:each="each: ${news}">
+                    <a th:href="@{${each.url}}" th:text="${each.title}" target="_blank"></a>
+            </li>
+        </ul>
+        <a class="fake-button" href="https://baomoi.com/phong-chong-dich-covid-19/top/328.epi" target="_blank">See more</a>
+    </div>
+
+    <div class="right" style="width:49%;">
+        <h1 class="title">Detail</h1>
+        <table class="provinces">
+            <tr>
+                <th>Province</th>
+                <th>Total cases</th>
+                <th>New cases</th>
+                <th>Death</th>
+            </tr>
+            <tr class="province" th:each="province:${provincesData}">
+                <td th:text="${province.name}" ></td>
+                <td th:text="${#numbers.formatInteger(province.caseTotal, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(province.caseToday, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(province.deathTotal, 0, 'COMMA')}"></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+</div>
+</body>
+</html>
