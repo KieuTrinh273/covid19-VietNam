@@ -29,7 +29,7 @@ public class vnDailyReportService {
 
 
     @PostConstruct
-    @Scheduled(cron = "* 1 * * * *")
+    @Scheduled(cron = "* 1 * * * *")//update every minute
     public vnDailyReport updateCurrentData() throws IOException {
         Document document = SSLHelper.getConnection(url).userAgent(USER_AGENT).get();
         Element currentData = document.select("div.mt-5").get(0);

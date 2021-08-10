@@ -31,8 +31,9 @@ public class HomeController {
     public String getHome(Model model) throws IOException {
         model.addAttribute("news", newsService.getListNews());
         model.addAttribute("data", dataDailyService.updateCurrentData());
-        model.addAttribute("deltaCaseTotal", provinceService.getDeltaCaseTotal());
         model.addAttribute("provincesData", provinceService.getProvinceData());
+        model.addAttribute("deltaCaseTotal", provinceService.getDeltaCaseTotal());
+
         return "home";
     }
 }

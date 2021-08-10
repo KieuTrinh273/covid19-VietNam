@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -26,7 +24,8 @@ public class ProvinceService {
 
     String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0";
     private String url = "https://ncov.moh.gov.vn/web/guest/trang-chu";
-    private long deltaCaseTotal = 0;
+
+    private long deltaCaseTotal=0;
 
     @Autowired
     public ProvinceService(ProvinceRepository repository, vnDailyReportRepository reportRepository) {
@@ -54,11 +53,14 @@ public class ProvinceService {
         repository.findAll().forEach(province -> {
             deltaCaseTotal+=province.getCaseToday();
         });
+         updateDataYesterday();
+    }
 
+    public void updateDataYesterday() {
         LocalDate yesterday = LocalDate.now().minusDays(1);
         vnDailyReport yesterdayData = reportRepository.findByDate(yesterday).orElse(new vnDailyReport());
         yesterdayData.setDate(yesterday);
-        yesterdayData.setTotalConfirmed(reportRepository.findByDate(LocalDate.now()).get().getTotalConfirmed()-deltaCaseTotal);
+        yesterdayData.setTotalConfirmed(reportRepository.getCurrentNumOfCase()-deltaCaseTotal);
         reportRepository.save(yesterdayData);
     }
 

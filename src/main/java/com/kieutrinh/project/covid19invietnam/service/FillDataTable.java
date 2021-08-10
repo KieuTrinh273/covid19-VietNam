@@ -33,7 +33,7 @@ public class FillDataTable {
         this.repository = repository;
     }
 
-    //@PostConstruct
+    @PostConstruct
     public void collectAllData() throws IOException, URISyntaxException, InterruptedException {
         //fill data table (22/01/2020-2 days before current day)
         collectData(urlConfirmedCaseData,"confirmedCase");
@@ -42,11 +42,11 @@ public class FillDataTable {
     }
 
     public void collectData(String url, String attr) throws IOException, URISyntaxException, InterruptedException {
-        List<News> listNewsUpdating = new ArrayList<>();
         HttpClient clien = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
         HttpResponse<String> response = clien.send(request, HttpResponse.BodyHandlers.ofString());
 
+        //read data from file CSV (Viet Nam only)
         StringReader csvBodyReader = new StringReader(response.body());
         CSVParser records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
         CSVRecord vnRecord = null;
@@ -55,6 +55,7 @@ public class FillDataTable {
                 vnRecord = record;
             }
         }
+        //from 22/01/2020
         LocalDate date = LocalDate.of(2020,01,21);
         for (int i = 4; i < vnRecord.size(); i++) {
             date = date.plusDays(1);
